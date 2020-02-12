@@ -1,5 +1,10 @@
 #include "fillit.h"
 
+char	**ft_square(int size, char **str)
+{
+	
+}
+
 char	**ft_rearrange(int size, char **str)
 {
 	int		i;
@@ -39,13 +44,13 @@ int		ft_valid2(int size, char **str)
 				count++;
 			if ((j % 5 != 4 && j != 20) && (str[i][j] != '.' && str[i][j] != '#'))  // check the character either # or .
 				count++;
-			count > 0 ? (write(1, "error\n", 6), exit(0)) : count;
+			count > 0 ? write(1, "1 error\n", 6), exit(0) : count;
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-	i > 25 ? write(1, "error", 6), exit(0) : count; // max 26 tetriminos 
+	i > 26 ? write(1, "2 error", 6), exit(0) : count; // max 26 tetriminos 
 	return (count);
 }
 
@@ -71,7 +76,7 @@ int		ft_valid1(int size, char **str)
 			}
 			j++;
 		}
-		(count != 6 && count != 8) ? write(1, "error\n", 6), exit(0) : count; //if it's not valid shape, just terminate programe.
+		(count != 6 && count != 8) ? write(1, "3 error\n", 6), exit(0) : count; //if it's not valid shape, just terminate programe.
 		j = 0;
 		i++;
 	}
@@ -96,7 +101,7 @@ int		ft_errorcheck(int size, char **str)
 		{
 			if (str[i][j] == '\n')
 				count++;
-			count > 5 ? write(1, "5error\n", 6), exit(0) : count;
+			count > 5 ? write(1, "4 error\n", 6), exit(0) : count;
 			j++;
 		}
 		j = 0;
@@ -110,33 +115,18 @@ int		ft_errorcheck(int size, char **str)
 	return (1);
 }
 
-int		ft_getsize(int fd)
+int		ft_getsize(char **str)
 {
     int     i;
-    int     count;
-	int		size;
-    char    c;
-    i = 1;
     
-	size = 0;
-	count = 0;
-    while (i > 0)
-    {
-        i = read(fd, &c, 1);
-        if (c == '\n')
-            count++;
-		if (count == 5)
-		{
-			size++;
-			count = 0;
-		}
-    }
-    close(fd);
-	printf("%d\n", size);
-    return (size);
+	i = 0;
+	while (str[i][0] == '.' || str[i][0] == '#')
+		i++;
+	printf("size: %d\n", i);
+	return (i);
 }
 
-char			**ft_getfile(int fd, int size, char *s)
+char			**ft_getfile(int fd, char *filename)
 {
 	char	**line;
 	char	*str;
@@ -145,9 +135,9 @@ char			**ft_getfile(int fd, int size, char *s)
 	
 	j = 0;
 	i = 1;
-	line = (char**)malloc(sizeof(char*) * size);
+	line = (char**)malloc(sizeof(char*) * ARRAY_SIZE);
 	str = (char*)malloc(sizeof(char) * SIZE);
-	if (!(fd = open(s, O_RDONLY)) || !str || !line || read(fd, str, 0) < 0)
+	if (!str || !line || read(fd, str, 0) < 0)
 		return (NULL);
 	while (i > 0)
 	{
@@ -157,25 +147,26 @@ char			**ft_getfile(int fd, int size, char *s)
 			line[j] = ft_strdup(str);
 		else
 			line[j] = ft_strsub(str, 0, SIZE - 1);
-		printf("%s", line[j]);
+//		printf("%s", line[j]);
 		j++;
 	}
 	printf("---------------------------------\n");
 	free(str);
+	close(fd);
 	return (line);
 }
 
-int		ft_fillit(int fd, char *str)
+int		ft_fillit(int fd, char *filename)
 {
 	char	**line;
 	int		i;
 	int		size;
 	char	**line2;
 
-	size = ft_getsize(fd);
-	line = ft_getfile(fd, size, str);
+	line = ft_getfile(fd, filename);
+	size = ft_getsize(line);
 	i = ft_errorcheck(size, line);
-	line2 = ft_rearrange(size, line);
+//	line2 = ft_rearrange(size, line);
 	
 	return (0);
 }
@@ -194,7 +185,6 @@ int main(int ac, char **av)
 		ft_putstr("error\n");
 		return (1);
 	}
-	
-	ft_fillit(fd, av[1]);	
+	ft_fillit(fd, av[1]);
 	return (0);
 }
