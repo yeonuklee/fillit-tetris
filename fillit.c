@@ -1,10 +1,5 @@
 #include "fillit.h"
 
-char	**ft_square(int size, char **str)
-{
-	
-}
-
 char	**ft_rearrange(int size, char **str)
 {
 	int		i;
@@ -115,29 +110,36 @@ int		ft_errorcheck(int size, char **str)
 	return (1);
 }
 
-int		ft_getsize(char **str)
+int		ft_getsize(int fd)
 {
     int     i;
-    
-	i = 0;
-	while (str[i][0] == '.' || str[i][0] == '#')
-		i++;
-	printf("size: %d\n", i);
-	return (i);
+    int     count;
+    char    c;
+
+	i = 1;
+    count = 0;
+    while (i > 0)
+    {
+        i = read(fd, &c, 1);
+        count++;
+    }
+    close(fd);
+  //  printf("SIZE: %d\n", count/20);
+	return (count / 20);
 }
 
-char			**ft_getfile(int fd, char *filename)
+char			**ft_getfile(int fd, int size, char *filename)
 {
 	char	**line;
 	char	*str;
 	int		i;
 	int		j;
-	
+
 	j = 0;
 	i = 1;
-	line = (char**)malloc(sizeof(char*) * ARRAY_SIZE);
+	line = (char**)malloc(sizeof(char*) * size);
 	str = (char*)malloc(sizeof(char) * SIZE);
-	if (!str || !line || read(fd, str, 0) < 0)
+	if ((fd = open(filename, O_RDONLY)) < 0 || !str || !line || read(fd, str, 0) < 0)
 		return (NULL);
 	while (i > 0)
 	{
@@ -147,10 +149,10 @@ char			**ft_getfile(int fd, char *filename)
 			line[j] = ft_strdup(str);
 		else
 			line[j] = ft_strsub(str, 0, SIZE - 1);
-//		printf("%s", line[j]);
+	//	printf("%s", line[j]);
 		j++;
 	}
-	printf("---------------------------------\n");
+//	printf("---------------------------------\n");
 	free(str);
 	close(fd);
 	return (line);
@@ -163,8 +165,8 @@ int		ft_fillit(int fd, char *filename)
 	int		size;
 	char	**line2;
 
-	line = ft_getfile(fd, filename);
-	size = ft_getsize(line);
+	size = ft_getsize(fd);
+	line = ft_getfile(fd, size, filename);
 	i = ft_errorcheck(size, line);
 //	line2 = ft_rearrange(size, line);
 	
