@@ -5,7 +5,7 @@
 #define ARRAY_SIZE 26
 #define MAX_SIZE 1024
 
-#include "libft/srcs/libft.h"
+#include "libft/libft.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -29,6 +29,7 @@ typedef struct	s_board
 }               t_board;
 
 
+void		ft_freeboard(t_board *board);
 t_tetris	*ft_updatetet(t_tetris *tet);
 void		ft_recoordi(t_tetris **head);
 t_board     *ft_backtrack(t_tetris *coords, t_board *board, int row);
