@@ -89,20 +89,20 @@ int ft_check(t_board *board, int col, int row, t_tetris tet)
 
 void	ft_insert(t_board *board, int col, int row, t_tetris tet)
 {
-	board->board[col + tet.coord[0]][row + tet.coord[1]] = tet.tetriminos[0];
-	board->board[col + tet.coord[2]][row + tet.coord[3]] = tet.tetriminos[0];
-	board->board[col + tet.coord[4]][row + tet.coord[5]] = tet.tetriminos[0];
-	board->board[col + tet.coord[6]][row + tet.coord[7]] = tet.tetriminos[0];
-	tet.tetriminos[2] = col;
-	tet.tetriminos[3] = row;
+	board->board[col + tet.coord[0]][row + tet.coord[1]] = tet.tet[0];
+	board->board[col + tet.coord[2]][row + tet.coord[3]] = tet.tet[0];
+	board->board[col + tet.coord[4]][row + tet.coord[5]] = tet.tet[0];
+	board->board[col + tet.coord[6]][row + tet.coord[7]] = tet.tet[0];
+	tet.tet[2] = col;
+	tet.tet[3] = row;
 }
 
 void	ft_remove(t_board *board, t_tetris tet)
 {
-	board->board[tet.tetriminos[2] + tet.coord[0]][tet.tetriminos[3] + tet.coord[1]] = '.';
-	board->board[tet.tetriminos[2] + tet.coord[2]][tet.tetriminos[3] + tet.coord[3]] = '.';
-	board->board[tet.tetriminos[2] + tet.coord[4]][tet.tetriminos[3] + tet.coord[5]] = '.';
-	board->board[tet.tetriminos[2] + tet.coord[6]][tet.tetriminos[3] + tet.coord[7]] = '.';
+	board->board[tet.tet[2] + tet.coord[0]][tet.tet[3] + tet.coord[1]] = '.';
+	board->board[tet.tet[2] + tet.coord[2]][tet.tet[3] + tet.coord[3]] = '.';
+	board->board[tet.tet[2] + tet.coord[4]][tet.tet[3] + tet.coord[5]] = '.';
+	board->board[tet.tet[2] + tet.coord[6]][tet.tet[3] + tet.coord[7]] = '.';
 }
 
 t_board	*ft_backtrack(t_tetris *coords, t_board *board, int row)
