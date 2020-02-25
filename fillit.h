@@ -29,7 +29,7 @@ typedef struct	s_board
 }               t_board;
 
 
-void        ft_updatetet(t_tetris *tet);
+t_tetris	*ft_updatetet(t_tetris *tet);
 void		ft_recoordi(t_tetris **head);
 t_board     *ft_backtrack(t_tetris *coords, t_board *board, int size);
 void        printboard(t_board *board);

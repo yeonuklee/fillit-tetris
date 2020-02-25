@@ -1,6 +1,5 @@
 #include "fillit.h"
 
-
 void		ft_recoordi(t_tetris **head)
 {
 	t_tetris	*temp;
@@ -9,42 +8,35 @@ void		ft_recoordi(t_tetris **head)
 	int			k;
 
 	temp = *head;
-	k = 0;
+	k = -1;
 	while (temp->next)
 	{
-		i = 0;
+		i = -1;
 		j = 0;
-		while (i < SIZE)
+		while (++i < SIZE)
 		{
 			if (temp->tetriminos[i] == '#')
-			{
 				while (j < 8)
 				{
 					temp->coord[j] = temp->coord[j] - (i % 5);
-					++j;
-					temp->coord[j] = temp->coord[j] - (i / 5);
-					++j;
+					temp->coord[j+1] = temp->coord[j+1] - (i / 5);
+					j += 2;
 				}
-			}
-			i++;
 		}
-		ft_updatetet(temp);
-		temp->tetriminos[0] = k + 'A';
-		++k;
-		temp = temp->next;
+		temp->tetriminos[0] = ++k + 'A';
+		temp = ft_updatetet(temp)->next;
 	}
 }
 
-
-void ft_updatetet(t_tetris *tet)
+t_tetris	*ft_updatetet(t_tetris *tet)
 {
 	int	i;
 
 	tet->height = 0;
 	tet->width = 0;
-	i = 0;
+	i = -1;
 	tet->negw = 0;
-	while(i < 8)
+	while(++i < 8)
 	{
 		if(tet->width < tet->coord[i])
 			tet->width = tet->coord[i];
@@ -53,13 +45,11 @@ void ft_updatetet(t_tetris *tet)
 		++i;
 		if(tet->height < tet->coord[i])
 			tet->height = tet->coord[i];
-		++i;
 	}
 	tet->height += 1;
 	tet->width += 1 + (tet->negw * -1);
+	return (tet);
 }
-
-
 
 void		free_structure(t_tetris *head)
 {
