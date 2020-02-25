@@ -48,7 +48,7 @@ void ft_updatetet(t_tetris *tet)
 	{
 		if(tet->width < tet->coord[i])
 			tet->width = tet->coord[i];
-		if(tet->coord[i] == -1 && !tet->negw)
+		if(tet->coord[i] < 0)
 			--(tet->negw);
 		++i;
 		if(tet->height < tet->coord[i])

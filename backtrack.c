@@ -56,7 +56,7 @@ int ft_check(t_board *board, int col, int row, t_tetris tet)
 	int i;
 
 	i = 0;
-	if((col == 0) && (tet.negw < 0))
+	if((col + tet.negw < 0))
 		return 0;
  	if ((tet.width + tet.negw + col > board->len) || (tet.height + row > board->len))
 		return 0;
@@ -67,6 +67,7 @@ int ft_check(t_board *board, int col, int row, t_tetris tet)
 		else 
 			return 0;
 	}
+	ft_insert(board, col, row, tet);
 	return 1;
 }
 
@@ -89,7 +90,7 @@ t_board *ft_insert(t_board *board, int col, int row, t_tetris tet)
 	return (board);
 }
 
-t_board *ft_rmpiece(t_board *board, t_tetris tet)
+t_board *ft_remove(t_board *board, t_tetris tet)
 {
 /*	int count;
 
@@ -103,7 +104,6 @@ t_board *ft_rmpiece(t_board *board, t_tetris tet)
 	board->board[tet.tetriminos[2] + tet.coord[2]][tet.tetriminos[3] + tet.coord[3]] = '.';
 	board->board[tet.tetriminos[2] + tet.coord[4]][tet.tetriminos[3] + tet.coord[5]] = '.';
 	board->board[tet.tetriminos[2] + tet.coord[6]][tet.tetriminos[3] + tet.coord[7]] = '.';
- 
 	return (board);
 }
 
@@ -127,17 +127,14 @@ t_board	*ft_backtrack(t_tetris *coords, t_board *board, int size)
 		{
 			if(ft_check(board, col, row, *tet) == 1)
 			{
-				ft_insert(board, col, row, *tet);
 				if (ft_backtrack(tet->next, board, size)->found == 1)
 				{
-					
 					return(board);
 				}
 				else
 				{
-					ft_rmpiece(board, *tet);
+					ft_remove(board, *tet);
 				}
-				
 			}
 			++col;
 		}
