@@ -13,7 +13,7 @@
 typedef struct              s_tetris
 {  
 
-    char                    *tetriminos;
+    char                    *tet;
     int                     height;
     int                     width;
     int                     negw;

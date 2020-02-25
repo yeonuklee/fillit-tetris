@@ -14,14 +14,14 @@ void		ft_recoordi(t_tetris **head)
 		i = -1;
 		j = 0;
 		while (++i < SIZE)
-			if (temp->tetriminos[i] == '#')
+			if (temp->tet[i] == '#')
 				while (j < 8)
 				{
 					temp->coord[j] = temp->coord[j] - (i % 5);
 					temp->coord[j+1] = temp->coord[j+1] - (i / 5);
 					j += 2;
 				}
-		temp->tetriminos[0] = ++k + 'A';
+		temp->tet[0] = ++k + 'A';
 		temp = ft_updatetet(temp)->next;
 	}
 }
@@ -33,8 +33,8 @@ void		free_structure(t_tetris *head)
 	while (head->next)
 	{
 		list = head->next;
-		if (head->tetriminos)
-			free(head->tetriminos);
+		if (head->tet)
+			free(head->tet);
 		free(head);
 		head = list;
 	}
@@ -65,7 +65,7 @@ void		ft_coordination(t_tetris **head)
 		j = 0;
 		while (i < SIZE)
 		{
-			if (temp->tetriminos[i] == '#')
+			if (temp->tet[i] == '#')
 			{
 				temp->coord[j] = i % 5;
 				j++;
@@ -94,12 +94,12 @@ int		ft_valid2(t_tetris **head, int size)
 		count = 0;
 		while (i < 21)
 		{
-			if ((i % 5 == 4 && temp->tetriminos[i] != '\n') || (i == 20 && temp->tetriminos[i] != '\n')) 
+			if ((i % 5 == 4 && temp->tet[i] != '\n') || (i == 20 && temp->tet[i] != '\n')) 
 				count++;
 			j == size ? count = 0 : count;
-			j == size && temp->tetriminos[20] != '\0' ? count++ : count;
+			j == size && temp->tet[20] != '\0' ? count++ : count;
             count > 0 ? ft_putstr("error\n"), exit(0) : count;
-			if ((i % 5 != 4 && i != 20) && (temp->tetriminos[i] != '.' && temp->tetriminos[i] != '#'))
+			if ((i % 5 != 4 && i != 20) && (temp->tet[i] != '.' && temp->tet[i] != '#'))
 				count++;
 			count > 0 ? ft_putstr("error\n"), exit(0) : count;
 			i++;
@@ -123,12 +123,12 @@ int		ft_valid1(t_tetris **head)
 		i = 0;
 		while (i < SIZE) 
 		{
-			if (temp->tetriminos[i] == '#')
+			if (temp->tet[i] == '#')
 			{
-				(i < 16 && temp->tetriminos[i + 5] == '#') ? count++ : count;
-				(i > 4 && temp->tetriminos[i - 5] == '#') ? count++ : count;
-				(i != 0 && temp->tetriminos[i - 1] =='#') ? count++ : count;
-				(temp->tetriminos[i - 1] == '#') ? count++ : count;
+				(i < 16 && temp->tet[i + 5] == '#') ? count++ : count;
+				(i > 4 && temp->tet[i - 5] == '#') ? count++ : count;
+				(i != 0 && temp->tet[i - 1] =='#') ? count++ : count;
+				(temp->tet[i - 1] == '#') ? count++ : count;
 			}
 			i++;
 		}
@@ -151,7 +151,7 @@ int			ft_errorcheck(t_tetris **head, int size)
 		i = 0;
 		while (i < SIZE)
 		{
-			if (temp->tetriminos[i] == '\n')
+			if (temp->tet[i] == '\n')
 				count++;
 			count > 5 ? ft_putstr("error\n"), exit(0) : count;
 			i++;
@@ -218,7 +218,7 @@ t_tetris	**ft_getfile(int fd, t_tetris **head)
 		i = read(fd, str, SIZE);
 		str[i] = '\0';
 		t_tet = ft_newnode(str);
-		t_tet->tetriminos = ft_strdup(str);
+		t_tet->tet = ft_strdup(str);
 		ft_addtoend(head, t_tet);
 	}
 	free(str);
@@ -233,9 +233,9 @@ t_tetris    *ft_newnode(char *str)
 	if (!(t_tet = (t_tetris*)malloc(sizeof(t_tetris))))
 		return (NULL);
 	if (!str)
-		t_tet->tetriminos = NULL;
+		t_tet->tet = NULL;
 	else
-		t_tet->tetriminos = ft_strdup(str);
+		t_tet->tet = ft_strdup(str);
 	t_tet->next = NULL;
 	return (t_tet);
 }
