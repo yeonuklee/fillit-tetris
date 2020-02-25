@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   backtrack.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tyeung <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/25 15:09:29 by tyeung            #+#    #+#             */
+/*   Updated: 2020/02/25 15:09:32 by tyeung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 t_board	*ft_backtrack(t_tetris *coords, t_board *board, int row)
@@ -18,7 +30,7 @@ t_board	*ft_backtrack(t_tetris *coords, t_board *board, int row)
 			if (ft_check(board, col, row, *tet) == 1)
 			{
 				if (ft_backtrack(tet->next, board, -1)->found == 1)
-					return(board);
+					return (board);
 				else
 					ft_remove(board, *tet);
 			}
