@@ -14,7 +14,6 @@ void		ft_recoordi(t_tetris **head)
 		i = -1;
 		j = 0;
 		while (++i < SIZE)
-		{
 			if (temp->tetriminos[i] == '#')
 				while (j < 8)
 				{
@@ -22,33 +21,9 @@ void		ft_recoordi(t_tetris **head)
 					temp->coord[j+1] = temp->coord[j+1] - (i / 5);
 					j += 2;
 				}
-		}
 		temp->tetriminos[0] = ++k + 'A';
 		temp = ft_updatetet(temp)->next;
 	}
-}
-
-t_tetris	*ft_updatetet(t_tetris *tet)
-{
-	int	i;
-
-	tet->height = 0;
-	tet->width = 0;
-	i = -1;
-	tet->negw = 0;
-	while(++i < 8)
-	{
-		if(tet->width < tet->coord[i])
-			tet->width = tet->coord[i];
-		if(tet->coord[i] < 0)
-			--(tet->negw);
-		++i;
-		if(tet->height < tet->coord[i])
-			tet->height = tet->coord[i];
-	}
-	tet->height += 1;
-	tet->width += 1 + (tet->negw * -1);
-	return (tet);
 }
 
 void		free_structure(t_tetris *head)
@@ -275,18 +250,17 @@ void		ft_fillit2(int fd)
 	board = (t_board*)malloc(sizeof(t_board*));
 	board->board = NULL;
 	if (!(head = (t_tetris**)malloc(sizeof(t_tetris*))))
-		return ;
+		return ; //error???
 	head = ft_getfile(fd, head);
 	size = ft_size(head);
 	error = ft_errorcheck(head, size);
 	ft_coordination(head);
-	size = ft_smallest_size(size);
+	size = ft_smallest_size(size) - 1;
 	board->found = 0;
 	while(board->found == 0)
 	{
-		ft_initboard(board, size);
- 		ft_backtrack(*head, board, size);
-		++size;
+		ft_initboard(board, ++size);
+ 		ft_backtrack(*head, board, -1);
 	}
 	printboard(board);
 	free_structure(*head);

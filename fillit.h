@@ -31,10 +31,10 @@ typedef struct	s_board
 
 t_tetris	*ft_updatetet(t_tetris *tet);
 void		ft_recoordi(t_tetris **head);
-t_board     *ft_backtrack(t_tetris *coords, t_board *board, int size);
+t_board     *ft_backtrack(t_tetris *coords, t_board *board, int row);
 void        printboard(t_board *board);
-t_board     *ft_remove(t_board *board, t_tetris tet);
-t_board     *ft_insert(t_board *board, int row, int col, t_tetris tet);
+void        ft_remove(t_board *board, t_tetris tet);
+void        ft_insert(t_board *board, int row, int col, t_tetris tet);
 t_board     *ft_initboard(t_board *board, int len);
 int         ft_check(t_board *board, int row, int col, t_tetris coords);
 void        free_structure(t_tetris *head);
