@@ -12,6 +12,20 @@
 
 #include "fillit.h"
 
+void		ft_freeboard(t_board *board)
+{
+	int i;
+
+	if (board->board != NULL)
+	{
+		i = board->len;
+		while (--i >= 0)
+			free(board->board[i]);
+		free(board->board);
+		board->board = NULL;
+	}
+}
+
 t_tetris	*ft_updatetet(t_tetris *tet)
 {
 	int	i;
@@ -40,14 +54,7 @@ t_board		*ft_initboard(t_board *board, int len)
 	int col;
 
 	row = -1;
-	if (board->board != NULL)
-	{
-		col = board->len;
-		while (--col >= 0)
-			free(board->board[col]);
-		free(board->board);
-		board->board = NULL;
-	}
+	ft_freeboard(board);
 	board->len = len;
 	board->board = (int**)malloc(len * sizeof(int*));
 	while (++row < len)
@@ -77,4 +84,5 @@ void		printboard(t_board *board)
 		ft_putchar('\n');
 		++row;
 	}
+	ft_freeboard(board);
 }
