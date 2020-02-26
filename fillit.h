@@ -1,55 +1,65 @@
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fillit.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yelee <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/25 14:41:56 by yelee             #+#    #+#             */
+/*   Updated: 2020/02/25 14:55:43 by yelee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define SIZE 21
-#define ARRAY_SIZE 26
-#define MAX_SIZE 1024
+#ifndef FILLIT_H
+# define FILLIT_H
 
-#include "libft/libft.h"
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
+# define SIZE 21
+# define MAX_SIZE 1024
 
-typedef struct              s_tetris
-{  
+# include "libft/libft.h"
+# include <fcntl.h>
+# include <unistd.h>
 
-    char                    *tet;
-    int                     height;
-    int                     width;
-    int                     negw;
-    int                     coord[8];
-    struct      s_tetris    *next;
-}                           t_tetris;
-
-typedef struct	s_board
+typedef struct		s_tetris
 {
-	int						**board;
-	int						len;
-    int                     found;
-}               t_board;
 
+	char			*tet;
+	int				height;
+	int				width;
+	int				negw;
+	int				coord[8];
+	struct s_tetris	*next;
+}					t_tetris;
 
-void		ft_freeboard(t_board *board);
-t_tetris	*ft_updatetet(t_tetris *tet);
-void		ft_recoordi(t_tetris **head);
-t_board     *ft_backtrack(t_tetris *coords, t_board *board, int row);
-void        printboard(t_board *board);
-void        ft_remove(t_board *board, t_tetris tet);
-void        ft_insert(t_board *board, int row, int col, t_tetris tet);
-t_board     *ft_initboard(t_board *board, int len);
-int         ft_check(t_board *board, int row, int col, t_tetris coords);
-void        free_structure(t_tetris *head);
-int			ft_smallest_size(int size);
-void		ft_recoordi(t_tetris **head);
-void		ft_coordination(t_tetris **head);
-int         ft_valid2(t_tetris **head, int size);
-int         ft_valid1(t_tetris **head);
-int         ft_errorcheck(t_tetris **head, int size);
-int			ft_size(t_tetris **head);
-void        ft_addtoend(t_tetris **head, t_tetris *new);
-t_tetris	**ft_getfile(int fd, t_tetris **head);
-t_tetris    *ft_newnode(char *str);
-void        ft_fillit2(int fd);
-int         main(int ac, char **av);
+typedef struct		s_board
+{
+	int				**board;
+	int				len;
+	int				found;
+}					t_board;
+
+void				ft_freeboard(t_board *board);
+t_tetris			*ft_updatetet(t_tetris *tet);
+void				ft_recoordi(t_tetris **head);
+t_board				*ft_backtrack(t_tetris *coords, t_board *board, int row);
+void				printboard(t_board *board);
+void				ft_remove(t_board *board, t_tetris tet);
+void				ft_insert(t_board *board, int row, int col, t_tetris tet);
+t_board				*ft_initboard(t_board *board, int len);
+int					ft_check(t_board *board, int row, int col, t_tetris coords);
+void				free_structure(t_tetris *head);
+int					ft_smallest_size(int size);
+void				ft_recoordi(t_tetris **head);
+void				ft_coordination(t_tetris **head);
+void				ft_valid2(t_tetris **head, int size);
+void				ft_valid1(t_tetris **head);
+void				ft_errorcheck(t_tetris **head, int size);
+int					ft_size(t_tetris **head);
+void				ft_addtoend(t_tetris **head, t_tetris *new);
+t_tetris			**ft_getfile(int fd, t_tetris **head);
+t_tetris			*ft_newnode(char *str);
+void				ft_fillit2(int fd);
+int					main(int ac, char **av);
+void				ft_exit(void);
 
 #endif
