@@ -18,7 +18,7 @@ void		ft_fillit2(int fd)
 	int			size;
 	t_board		*board;
 
-	board = (t_board*)malloc(sizeof(t_board*));
+	board = (t_board*)malloc(sizeof(t_board));
 	board->board = NULL;
 	if (!(head = (t_tetris**)malloc(sizeof(t_tetris*))))
 		return ;

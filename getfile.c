@@ -36,7 +36,7 @@ t_tetris	**ft_getfile(int fd, t_tetris **head)
 	int			i;
 
 	*head = NULL;
-	if (!(str = (char*)malloc(sizeof(char) * SIZE)) || read(fd, str, 0) < 0)
+	if (!(str = (char*)malloc(sizeof(char) * (SIZE + 1))) || read(fd, str, 0) < 0)
 		return (NULL);
 	i = 1;
 	while (i > 0)
