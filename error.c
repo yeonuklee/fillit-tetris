@@ -64,11 +64,10 @@ void		ft_valid1(t_tetris **head, int size)
 		{
 			if (temp->tet[i] == '#')
 			{
-				(i < 16 && j != size && temp->tet[i + 5] == '#') ? count++ : count;
-				(i < 15 && j != size && temp->tet[i + 5] == '#') ? count++ : count;
+				(j != size && i < 16 && temp->tet[i + 5] == '#') ? count++ : count;
+				(j == size && i < 15 && temp->tet[i + 5] == '#') ? count++ : count;
 				(i > 4 && temp->tet[i - 5] == '#') ? count++ : count;
 				(i != 0 && temp->tet[i - 1] == '#') ? count++ : count;
-				(temp->tet[i - 1] == '#') ? count++ : count;
 			}
 			i++;
 		}
