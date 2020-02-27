@@ -51,28 +51,25 @@ void		ft_valid1(t_tetris **head, int size)
 {
 	t_tetris	*temp;
 	int			i;
-	int			count;
+	int			c;
 	int			j;
 
 	j = 1;
 	temp = *head;
 	while (temp->next)
 	{
-		count = 0;
-		i = 0;
-		while (i < SIZE)
-		{
+		c = 0;
+		i = -1;
+		while (++i < SIZE)
 			if (temp->tet[i] == '#')
 			{
-				(j != size && i < 16 && temp->tet[i + 5] == '#') ? count++ : count;
-				(j == size && i < 15 && temp->tet[i + 5] == '#') ? count++ : count;
-				(i > 4 && temp->tet[i - 5] == '#') ? count++ : count;
-				(i != 0 && temp->tet[i - 1] == '#') ? count++ : count;
-				(i != 20 temp->tet[i + 1] == '#') ? count++ : count;
+				(j != size && i < 16 && temp->tet[i + 5] == '#') ? c++ : c;
+				(j == size && i < 15 && temp->tet[i + 5] == '#') ? c++ : c;
+				(i > 4 && temp->tet[i - 5] == '#') ? c++ : c;
+				(i != 0 && temp->tet[i - 1] == '#') ? c++ : c;
+				(i != 20 && temp->tet[i + 1] == '#') ? c++ : c;
 			}
-			i++;
-		}
-		(count != 6 && count != 8) ? ft_exit() : count;
+		(c != 6 && c != 8) ? ft_exit() : c;
 		temp = temp->next;
 		j++;
 	}
