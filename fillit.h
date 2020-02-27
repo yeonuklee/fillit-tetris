@@ -49,7 +49,6 @@ t_board				*ft_initboard(t_board *board, int len);
 int					ft_check(t_board *board, int row, int col, t_tetris coords);
 void				free_structure(t_tetris *head);
 int					ft_smallest_size(int size);
-void				ft_recoordi(t_tetris **head);
 void				ft_coordination(t_tetris **head);
 void				ft_valid2(t_tetris **head, int size);
 void				ft_valid1(t_tetris **head, int size);
