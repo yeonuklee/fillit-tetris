@@ -52,6 +52,7 @@ int					ft_smallest_size(int size);
 void				ft_coordination(t_tetris **head);
 void				ft_valid2(t_tetris **head, int size);
 void				ft_valid1(t_tetris **head, int size);
+void				ft_valid3(t_tetris **head);
 void				ft_errorcheck(t_tetris **head, int size);
 int					ft_size(t_tetris **head);
 void				ft_addtoend(t_tetris **head, t_tetris *new);

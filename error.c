@@ -18,6 +18,31 @@ void		ft_exit(void)
 	exit(0);
 }
 
+void		ft_valid3(t_tetris **head)
+{
+	int			i;
+	int			x;
+	int			y;
+	t_tetris	*temp;
+
+	temp = *head;
+	while (temp->next)
+	{
+		x = 0;
+		y = 0;
+		i = 0;
+		while (temp->tet[i])
+		{
+			temp->tet[i] == '#' ? x++ : x;
+			temp->tet[i] == '.' ? y++ : y;
+			x > 4 ? ft_exit() : x;
+			y > 12 ? ft_exit() : y;
+			i++;
+		}
+		temp = temp->next;
+	}
+}
+
 void		ft_valid2(t_tetris **head, int size)
 {
 	int			i;
@@ -97,26 +122,7 @@ void		ft_errorcheck(t_tetris **head, int size)
 		temp = temp->next;
 	}
 	count == 0 ? ft_exit() : count;
-	ft_valid2(head, size);
 	ft_valid1(head, size);
-}
-
-int			ft_size(t_tetris **head)
-{
-	t_tetris	*temp;
-	int			count;
-
-	count = 0;
-	temp = *head;
-	while (temp->next)
-	{
-		count++;
-		temp = temp->next;
-	}
-	if (count > 26)
-	{
-		ft_putstr("error\n");
-		exit(0);
-	}
-	return (count);
+	ft_valid2(head, size);
+	ft_valid3(head);
 }

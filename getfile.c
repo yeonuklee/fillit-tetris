@@ -64,3 +64,23 @@ t_tetris	*ft_newnode(char *str)
 	t_tet->next = NULL;
 	return (t_tet);
 }
+
+int			ft_size(t_tetris **head)
+{
+	t_tetris	*temp;
+	int			count;
+
+	count = 0;
+	temp = *head;
+	while (temp->next)
+	{
+		count++;
+		temp = temp->next;
+	}
+	if (count > 26)
+	{
+		ft_putstr("error\n");
+		exit(0);
+	}
+	return (count);
+}
