@@ -1,6 +1,7 @@
 # fillit
 
-![2021-03-19 14 02 32](https://user-images.githubusercontent.com/52679439/111846074-528e7480-88c3-11eb-8893-098809adc767.gif)
+![2021-03-19 14 02 32](https://user-images.githubusercontent.com/52679439/111863021-22bc8c80-8916-11eb-89b8-917c42d4b541.gif)
+
 
 Fillit is a project who let you discover and/or familiarize yourself with a recurring problematic in programming : searching for the optimal solution among a huge set of pos- sibilities. In this particular project, you will be charged of creating an algorithm which fits some Tetriminos together into the smallest possible square.
 
